@@ -98,6 +98,7 @@ while(appInit):
 
             else:
               num_menu == "0"
+              break
 
         if num_menu == 3:
             validacao_email = 0

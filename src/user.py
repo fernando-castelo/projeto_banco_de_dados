@@ -10,7 +10,7 @@ mydb = mysql.connector.connect(
 mycursor = mydb.cursor()
 
 def cadastrarUsuario():
-  
+  try: 
    nome_user = input("Digite o nome do usuario: ")
    senha_user = input("Digite uma senha: ")
    cpf_user = input("Digite seu cpf: ")
@@ -21,13 +21,14 @@ def cadastrarUsuario():
    val = (nome_user,senha_user,cpf_user,email_user)
    mycursor.execute(sql, val)
 
-   mydb.commit()
-
    sql = "INSERT INTO contato(telefone, cpf) VALUES (%s, %s)"
    val = (telefone_user, cpf_user)
    mycursor.execute(sql, val)
 
    mydb.commit()
+
+  except mysql.connector.Error as error:
+     mycursor.rollback()
 
 def validarEmail(emailUser,senhaUser):
   try:
