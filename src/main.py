@@ -1,6 +1,6 @@
 
 import mysql.connector
-
+#eu tenho acesso
 from user import *
 from navegacao import *
 from pedido import *
