@@ -1,11 +1,10 @@
-from inspect import _void
 import mysql.connector
 
 mydb = mysql.connector.connect(
   host="localhost",
   user="root",
-  password="",
-  database="projetobd"
+  password="senhaBanco123",
+  database="projetodb"
 )
 
 mycursor = mydb.cursor()
@@ -69,62 +68,6 @@ def exibirCardapio(estabelecimentoEscolhido,opcoesCardapio):
 
   return opcoesCardapio
 
-def buscarfavoritos(emailUser,senhaUser):
-  mycursor.execute("SELECT CPF FROM usuario WHERE Email = %s AND Senha = %s", (emailUser, senhaUser))
-  result = mycursor.fetchall()
-  for i in result:
-    cpfuser = i[0]
-
-  sql="SELECT CNPJ FROM favoritos WHERE CPF = %s"
-  mycursor.execute(sql, (cpfuser,))
-  result = mycursor.fetchall()
-  for i in result:
-    cnpj = i[0]
-  
-  sql="SELECT nome FROM estabelecimento WHERE CNPJ = %s"
-
-  mycursor.execute(sql, (cnpj, ))
-  result = mycursor.fetchall()
 
 
-  count = 1
-  for a in result:
-    print(count,"-", a[0])
-    count += 1
 
-def consultaFavorito(favorito_selecionado, emailUser, senhaUser):
-
-  mycursor.execute("SELECT CPF FROM usuario WHERE Email = %s AND Senha = %s", (emailUser, senhaUser))
-  result = mycursor.fetchall()
-  for i in result:
-    cpfuser = i[0]
-
-  sql="SELECT CNPJ FROM favoritos WHERE CPF = %s"
-  mycursor.execute(sql, (cpfuser,))
-  result = mycursor.fetchall()
-  for i in result:
-    cnpj = i[0]
-  
-  sql="SELECT CNPJ FROM estabelecimento WHERE CNPJ = %s"
-
-  mycursor.execute(sql, (cnpj, ))
-  result = mycursor.fetchall()
-  favorito_selecionado -= 1
-  try:
-    for a in result:
-      if True==(a[favorito_selecionado]):
-          return a
-  except Exception as err:
-    erro = "erro"
-    return erro
-
-def converterCnpjNome(cnpj_favorito_selecionado):
-  sql = "Select Nome FROM estabelecimento WHERE CNPJ = %s"
-
-  mycursor.execute(sql, (cnpj_favorito_selecionado, ))
-  result = mycursor.fetchall()
-
-  for i in result:
-    nomeEscolhido = i[0]
-
-    return nomeEscolhido
