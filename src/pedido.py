@@ -122,7 +122,7 @@ def exibir_pedido():
     usuario.Nome AS nome, \
     pedido.valortotal AS valor_total \
     FROM usuario \
-    INNER JOIN pedido ON solicitacao.CPF = usuario.CPF "
+    INNER JOIN pedido ON pedido.CPF = usuario.CPF "
     
   mycursor.execute(sql)
 

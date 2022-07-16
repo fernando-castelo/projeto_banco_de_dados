@@ -13,7 +13,6 @@ mydb = mysql.connector.connect(
 )
 
 mycursor = mydb.cursor()
- 
 
 appInit = True
 while(appInit):
@@ -64,7 +63,8 @@ while(appInit):
               print(" ")
               idSolicitacao = realizarPedido(nomeOpcoes,valorOpcoes,emailUser,estabelecimentoEscolhido)
               #Processar pedido modificado para insercao na tabela e agora com cpf
-              idPedido = processarPedido(idSolicitacao,cpf_user)
+              processarPedido(idSolicitacao,cpf_user)
+              exibir_pedido()
 
               num_menu = 0
             
@@ -95,8 +95,8 @@ while(appInit):
 
               print(" ")
               idSolicitacao = realizarPedido(nomeOpcoes,valorOpcoes,emailUser,estabelecimentoEscolhido)
-              valorTotal = processarPedido(idSolicitacao,cpf_user)
-              print("Valor Total do pedido: ", valorTotal,"\n")
+              #Processar pedido modificado para insercao na tabela e agora com cpf
+              processarPedido(idSolicitacao,cpf_user)
               exibir_pedido()
 
             else:
