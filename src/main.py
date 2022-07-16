@@ -13,6 +13,7 @@ mydb = mysql.connector.connect(
 )
 
 mycursor = mydb.cursor()
+ 
 
 appInit = True
 while(appInit):
@@ -30,7 +31,8 @@ while(appInit):
     print(" ")
 
     if validacao_email == 1:
-
+        #Funcao para pegar o cpf do usuario que precisa estar no pedido futuramente
+        cpf_user = get_cpf_user(emailUser)
         print("1- Exibir Estabelecimento")
         print("2- Pesquisar Estabelecimento")
         print("3- Encerrar Aplicativo")
@@ -61,11 +63,11 @@ while(appInit):
 
               print(" ")
               idSolicitacao = realizarPedido(nomeOpcoes,valorOpcoes,emailUser,estabelecimentoEscolhido)
-              valorTotal = processarPedido(idSolicitacao)
-              print("Valor Total do pedido: ", valorTotal)
-              num_menu = 0
-              
+              #Processar pedido modificado para insercao na tabela e agora com cpf
+              idPedido = processarPedido(idSolicitacao,cpf_user)
 
+              num_menu = 0
+            
             else:
               num_menu == "0"
               break
@@ -93,8 +95,9 @@ while(appInit):
 
               print(" ")
               idSolicitacao = realizarPedido(nomeOpcoes,valorOpcoes,emailUser,estabelecimentoEscolhido)
-              valorTotal = processarPedido(idSolicitacao)
+              valorTotal = processarPedido(idSolicitacao,cpf_user)
               print("Valor Total do pedido: ", valorTotal,"\n")
+              exibir_pedido()
 
             else:
               num_menu == "0"
@@ -121,7 +124,3 @@ while(appInit):
       print("Aplicativo Encerrado")
   else:
       print("Opcao Invalida!")
-
-
-    
-

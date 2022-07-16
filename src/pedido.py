@@ -1,4 +1,5 @@
 import mysql.connector
+import random
 
 mydb = mysql.connector.connect(
   host="localhost",
@@ -30,7 +31,7 @@ def realizarPedido(nomeOpcoes,valorOpcoes,emailUser,estabelecimentoEscolhido):
     for i in result:
       cnpjEstabelecimento = i[0]
     
-    idSolicitacao = input("Digite o id da solicitacao: ")
+    idSolicitacao = random.randrange(1,1000)
 
     sql = "INSERT INTO solicitacao(idsolic,CPF,CNPJ) VALUES (%s, %s, %s)"
     val = (idSolicitacao,cpfUser,cnpjEstabelecimento)
@@ -64,15 +65,13 @@ def realizarPedido(nomeOpcoes,valorOpcoes,emailUser,estabelecimentoEscolhido):
     
   except mysql.connector.Error as error:
       mycursor.rollback()
-    
-
 
 def definirListas(opcoes,nomeOpcoes,valorOpcoes):
     for i in opcoes:
       nomeOpcoes.append(i[0])
       valorOpcoes.append(i[1])
       
-def processarPedido(idSolicitacao):
+def processarPedido(idSolicitacao,cpf_user):
 
   idItens = []
   quantidadeItens = []
@@ -108,4 +107,31 @@ def processarPedido(idSolicitacao):
   for i in valorItem: 
     valorTotal += i
 
-  return valorTotal
+  idPedido = random.randrange(1,1000)
+
+  sql = "INSERT INTO pedido (idpedido,valortotal,idsolic,CPF) VALUES (%s, %s, %s,%s)"
+  val = (idPedido,valorTotal,idSolicitacao,cpf_user)
+  mycursor.execute(sql, val)
+          
+  mydb.commit()
+
+
+def exibir_pedido():
+
+  sql = "SELECT \
+    usuario.Nome AS nome, \
+    pedido.valortotal AS valor_total \
+    FROM usuario \
+    INNER JOIN pedido ON solicitacao.CPF = usuario.CPF "
+    
+  mycursor.execute(sql)
+
+  result = mycursor.fetchall()
+
+  nome_user = result[-1][0]
+  valor_total = result[-1][1]
+  print(nome_user,",seu pedido ficou no valor de: ",valor_total," deseja concluir sua compra? ")
+    
+
+
+    
