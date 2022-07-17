@@ -1,3 +1,4 @@
+from inspect import _void
 import mysql.connector
 
 mydb = mysql.connector.connect(
@@ -67,7 +68,3 @@ def exibirCardapio(estabelecimentoEscolhido,opcoesCardapio):
     count += 1
 
   return opcoesCardapio
-
-
-
-
