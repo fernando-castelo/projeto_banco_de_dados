@@ -3,8 +3,8 @@ import mysql.connector
 mydb = mysql.connector.connect(
   host="localhost",
   user="root",
-  password="senhaBanco123",
-  database="projetodb"
+  password="",
+  database="projetobd"
 )
 
 mycursor = mydb.cursor()
@@ -45,29 +45,27 @@ def buscarfavoritos(emailUser,senhaUser):
 
 def consultaFavorito(favorito_selecionado, emailUser, senhaUser):
 
+  cnpj = []
+
   mycursor.execute("SELECT CPF FROM usuario WHERE Email = %s AND Senha = %s", (emailUser, senhaUser))
   result = mycursor.fetchall()
   for i in result:
     cpfuser = i[0]
-
+ 
   sql="SELECT CNPJ FROM favoritos WHERE CPF = %s"
   mycursor.execute(sql, (cpfuser,))
   result = mycursor.fetchall()
+ 
+  count = 0
+  valor_de_retorno = 0
   for i in result:
-    cnpj = i[0]
-  
-  sql="SELECT CNPJ FROM estabelecimento WHERE CNPJ = %s"
-
-  mycursor.execute(sql, (cnpj, ))
-  result = mycursor.fetchall()
-  favorito_selecionado -= 1
-  try:
-    for a in result:
-      if True==(a[favorito_selecionado]):
-          return a
-  except Exception as err:
-    erro = "erro"
-    return erro
+    cnpj.append(i[0])
+    
+     
+    if len(cnpj)==favorito_selecionado:
+      valor_de_retorno = cnpj[count] 
+      return valor_de_retorno     
+    count +=1
 
 def converterCnpjNome(cnpj_favorito_selecionado):
   sql = "Select Nome FROM estabelecimento WHERE CNPJ = %s"

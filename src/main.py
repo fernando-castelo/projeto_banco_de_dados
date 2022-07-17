@@ -7,8 +7,8 @@ from favoritos import *
 mydb = mysql.connector.connect(
   host="localhost",
   user="root",
-  password="senhaBanco123",
-  database="projetodb"
+  password="",
+  database="projetobd"
 )
 
 mycursor = mydb.cursor()
@@ -50,17 +50,21 @@ while(appInit):
             print(" 3- Sair dos favoritos.")
             opcao_num =int(input("|-->:"))
             if opcao_num == 1:
-                
+
               favorito_selecionado = int(input("Selecione o estabelecimento desejado: "))
               cnpj_favorito_selecionado = consultaFavorito(favorito_selecionado, emailUser, senhaUser)
               nome_favorito = converterCnpjNome(cnpj_favorito_selecionado)
               if consultaFavorito != "erro": 
                 #até aqui ok, def teste. agora precisa associar esse numero do favorito selecionado.
+                opcoes = []
+                nomeOpcoes = []
+                valorOpcoes = []
+
                 print("-------------------------------")
                 print("Bem vindo a",nome_favorito)
                 print("Cardapio:")
-                exibirCardapio(nome_favorito,opcoes)
-                definirListas(opcoes,nomeOpcoes,valorOpcoes)
+                exibirCardapio(nome_favorito, opcoes)
+                definirListas(opcoes ,nomeOpcoes,valorOpcoes)
                 print("1- Realizar Pedido")
                 print("2- Sair do Estabecimento")
                 print("")
@@ -68,6 +72,10 @@ while(appInit):
                 num = input("Selecione uma opcao: ")
 
                 if (num == "1"):
+
+                  opcoes = []
+                  nomeOpcoes = []
+                  valorOpcoes = []
 
                   print(" ")
                   idSolicitacao = realizarPedido(nomeOpcoes,valorOpcoes,emailUser,nome_favorito)
