@@ -31,6 +31,7 @@ def cadastrarUsuario():
      mycursor.rollback()
 
 def validarEmail(emailUser,senhaUser):
+
   try:
     mycursor.execute("SELECT Email,Senha FROM usuario WHERE Email = %s AND Senha = %s", (emailUser, senhaUser))
     result = mycursor.fetchall()
@@ -44,3 +45,15 @@ def validarEmail(emailUser,senhaUser):
   except Exception as err:
       print("couldn't connect")
       print("General error :: ", err)
+
+def get_cpf_user(email_user):
+
+  sql = "Select CPF FROM usuario WHERE Email = %s"
+
+  mycursor.execute(sql, (email_user, ))
+  result = mycursor.fetchall()
+
+  for i in result:
+    cpf_user = i[0]
+    
+  return cpf_user
