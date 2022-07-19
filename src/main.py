@@ -30,7 +30,6 @@ while(appInit):
     print(" ")
 
     if validacao_email == 1:
-        #Funcao para pegar o cpf do usuario que precisa estar no pedido futuramente
         cpf_user = get_cpf_user(emailUser)
         print("1- Exibir Estabelecimento")
         print("2- Pesquisar Estabelecimento")
@@ -62,12 +61,15 @@ while(appInit):
 
               print(" ")
               idSolicitacao = realizarPedido(nomeOpcoes,valorOpcoes,emailUser,estabelecimentoEscolhido)
-              #Processar pedido modificado para insercao na tabela e agora com cpf
               processarPedido(idSolicitacao,cpf_user)
               exibir_pedido()
+              user_escolha = input(" ")
+              if (user_escolha == "SIM"):
+                 print("Pedido Realizado")
+              else:
+                print("Saindo do aplicativo")
+                num_menu = 0
 
-              num_menu = 0
-            
             else:
               num_menu == "0"
               break
@@ -95,9 +97,14 @@ while(appInit):
 
               print(" ")
               idSolicitacao = realizarPedido(nomeOpcoes,valorOpcoes,emailUser,estabelecimentoEscolhido)
-              #Processar pedido modificado para insercao na tabela e agora com cpf
               processarPedido(idSolicitacao,cpf_user)
               exibir_pedido()
+              user_escolha = input(" ")
+              if (user_escolha == "SIM"):
+                 print("Pedido Realizado")
+              else:
+                print("Saindo do aplicativo")
+                num_menu = 0
 
             else:
               num_menu == "0"

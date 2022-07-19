@@ -43,8 +43,7 @@ def validarEmail(emailUser,senhaUser):
        return 0
 
   except Exception as err:
-      print("couldn't connect")
-      print("General error :: ", err)
+      print("Usuario nao encontrado")
 
 def get_cpf_user(email_user):
 

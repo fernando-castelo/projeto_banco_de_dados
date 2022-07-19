@@ -12,6 +12,7 @@ mycursor = mydb.cursor()
 
 def realizarPedido(nomeOpcoes,valorOpcoes,emailUser,estabelecimentoEscolhido):
   try:
+
     count = 1
 
     sql = "Select CPF FROM usuario WHERE Email = %s"
@@ -107,14 +108,12 @@ def processarPedido(idSolicitacao,cpf_user):
   for i in valorItem: 
     valorTotal += i
 
-  idPedido = random.randrange(1,1000)
 
-  sql = "INSERT INTO pedido (idpedido,valortotal,idsolic,CPF) VALUES (%s, %s, %s,%s)"
-  val = (idPedido,valorTotal,idSolicitacao,cpf_user)
+  sql = "INSERT INTO pedido (valortotal,idsolic,CPF) VALUES (%s, %s,%s)"
+  val = (valorTotal,idSolicitacao,cpf_user)
   mycursor.execute(sql, val)
           
   mydb.commit()
-
 
 def exibir_pedido():
 
