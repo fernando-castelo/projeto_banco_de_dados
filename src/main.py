@@ -39,154 +39,128 @@ while(appInit):
       print("4- Encerrar Aplicativo")
 
       num_menu = input("Selecione uma opcao: ")
-          
-      while num_menu == "2" or num_menu == "3" or  num_menu == "1" or num_menu == "4" or (num_menu != 0):
+             
+      while num_menu == "1":
+        print("------------------Favoritos------------------")
+        buscarfavoritos(emailUser, senhaUser)
+        print("------------------Selecione uma Opção------------------")
+        print(" 1- Selecionar estabelecimento.")
+        print(" 2- Adicionar aos favorito.")
+        print(" 3- Sair dos favoritos.")
+        opcao_num = (input("|-->:"))
+        if opcao_num == "1":
 
-        if num_menu == "1":
-          
-          while num_menu == "1":
-            print("------------------Favoritos------------------")
-            buscarfavoritos(emailUser, senhaUser)
-            print("------------------Selecione uma Opção------------------")
-            print(" 1- Selecionar estabelecimento.")
-            print(" 2- Adicionar aos favorito.")
-            print(" 3- Sair dos favoritos.")
-            opcao_num =int(input("|-->:"))
-            if opcao_num == 1:
-
-              favorito_selecionado = int(input("Selecione o estabelecimento desejado: "))
-              cnpj_favorito_selecionado = consultaFavorito(favorito_selecionado, emailUser, senhaUser)
-              nome_favorito = converterCnpjNome(cnpj_favorito_selecionado)
-              if consultaFavorito != "erro": 
+          favorito_selecionado = int(input("Selecione o estabelecimento desejado: "))
+          cnpj_favorito_selecionado = consultaFavorito(favorito_selecionado, emailUser, senhaUser)
+          nome_favorito = converterCnpjNome(cnpj_favorito_selecionado)
+          if consultaFavorito != "erro": 
                 
-                opcoes = []
-                nomeOpcoes = []
-                valorOpcoes = []
-
-                estabelecimentoEscolhido = exibirEstabelecimentos()
-                print(" ")
-                print("Bem vindo a",estabelecimentoEscolhido)
-                print("Cardapio:")
-                exibirCardapio(estabelecimentoEscolhido,opcoes)
-                definirListas(opcoes,nomeOpcoes,valorOpcoes)
-                print("--------------------------------")
-                print("1- Realizar Pedido")
-                print("2- Sair do Estabecimento")
-                print(" ")
-
-                num = input("Selecione uma opcao: ")
-
-                if (num == "1"):
-                  print(" ")
-                  idSolicitacao = realizarPedido(nomeOpcoes,valorOpcoes,emailUser,estabelecimentoEscolhido)
-                  processarPedido(idSolicitacao,cpf_user)
-                  exibir_pedido()
-                  user_escolha = input(" ")
-                  if (user_escolha == "SIM"):
-                    print("Pedido Realizado")
-                  else:
-                    print("Saindo do aplicativo")
-                    num_menu = 0
-                else:
-                 num_menu == "0"
-                 break
-              else:
-                print("Opção inválida, selecione um estabelecimento da lista de favoritos.")
-            if opcao_num == 2:
-              123
-            if opcao_num == 3:  
-              123
-              num_menu = 0
-              break
-        if num_menu == "2":
-
-          opcoes = []
-          nomeOpcoes = []
-          valorOpcoes = []
-
-          estabelecimentoEscolhido = exibirEstabelecimentos()
-          print(" ")
-          print("Bem vindo a",estabelecimentoEscolhido)
-          print("Cardapio:")
-          exibirCardapio(estabelecimentoEscolhido,opcoes)
-          definirListas(opcoes,nomeOpcoes,valorOpcoes)
-          print("--------------------------------")
-          print("1- Realizar Pedido")
-          print("2- Sair do Estabecimento")
-          print(" ")
-
-          num = input("Selecione uma opcao: ")
-
-          if (num == "1"):
-            print(" ")
-            idSolicitacao = realizarPedido(nomeOpcoes,valorOpcoes,emailUser,estabelecimentoEscolhido)
-            processarPedido(idSolicitacao,cpf_user)
-            exibir_pedido()
-            user_escolha = input(" ")
-            if (user_escolha == "SIM"):
-              print("Pedido Realizado")
-            else:
-              print("Saindo do aplicativo")
-              num_menu = 0
-          else:
-              num_menu == "0"
-              break
-        elif num_menu == "3": 
-
-          opcoes = []
-          nomeOpcoes = []
-          valorOpcoes = []
-
-          estabelecimentoEscolhido = pesquisarEstabelecimentos()
-          print(" ")
-          print("Bem vindo a",estabelecimentoEscolhido)
-          print("Cardapio: \n")
-          exibirCardapio(estabelecimentoEscolhido,opcoes)
-          definirListas(opcoes,nomeOpcoes,valorOpcoes)
-          print("--------------------------------")
-          print("1- Realizar Pedido")
-          print("2- Sair do Estabecimento")
-          print(" ")
-
-          num = input("Selecione uma opcao: ")
-
-          if (num == "1"):
+            opcoes = []
+            nomeOpcoes = []
+            valorOpcoes = []
 
             print(" ")
-            idSolicitacao = realizarPedido(nomeOpcoes,valorOpcoes,emailUser,estabelecimentoEscolhido)
-            processarPedido(idSolicitacao,cpf_user)
-            exibir_pedido()
-            user_escolha = input(" ")
-            if (user_escolha == "SIM"):
-              print("Pedido Realizado")
-            else:
-              print("Saindo do aplicativo")
-              num_menu = 0
+            print("Bem vindo a ", nome_favorito)
+            print("Cardapio:")
+            exibirCardapio(nome_favorito,opcoes)
+            definirListas(opcoes,nomeOpcoes,valorOpcoes)
+            print("--------------------------------")
+            print("1- Realizar Pedido")
+            print("2- Sair do Estabecimento")
+            print(" ")
 
+            num = input("Selecione uma opcao: ")
+
+            if (num == "1"):
+              print(" ")
+              idSolicitacao = realizarPedido(nomeOpcoes,valorOpcoes,emailUser,nome_favorito)
+              processarPedido(idSolicitacao,cpf_user)
+              exibir_pedido()
+              user_escolha = input(" ")
+              if (user_escolha == "SIM"):
+                print("Pedido Realizado")
+            if(num == 2):
+              opcao_num == "3"
           else:
-            num_menu == "0"
+            print("Opção inválida, selecione um estabelecimento da lista de favoritos.")
+        if opcao_num == "2":
+          123 #Adicionar favorito
+        if opcao_num == "3": 
+          break
+      
+      while num_menu == "2":
+
+        opcoes = []
+        nomeOpcoes = []
+        valorOpcoes = []
+
+        estabelecimentoEscolhido = exibirEstabelecimentos()
+        print(" ")
+        print("Bem vindo a",estabelecimentoEscolhido)
+        print("Cardapio:")
+        exibirCardapio(estabelecimentoEscolhido,opcoes)
+        definirListas(opcoes,nomeOpcoes,valorOpcoes)
+        print("--------------------------------")
+        print("1- Realizar Pedido")
+        print("2- Sair do Estabecimento")
+        print(" ")
+
+        num = input("Selecione uma opcao: ")
+
+        if num == "1":
+          print(" ")
+          idSolicitacao = realizarPedido(nomeOpcoes,valorOpcoes,emailUser,estabelecimentoEscolhido)
+          processarPedido(idSolicitacao,cpf_user)
+          exibir_pedido()
+          user_escolha = input(" ")
+          if (user_escolha == "SIM"):
+            print("Pedido Realizado")
             break
-        if num_menu == "4":
+        if num == "2":
+          break     
+      
+      if num_menu == "3": 
+        opcoes = []
+        nomeOpcoes = []
+        valorOpcoes = []
+        estabelecimentoEscolhido = pesquisarEstabelecimentos()
+        print(" ")
+        print("Bem vindo a",estabelecimentoEscolhido)
+        print("Cardapio: \n")
+        exibirCardapio(estabelecimentoEscolhido,opcoes)
+        definirListas(opcoes,nomeOpcoes,valorOpcoes)
+        print("--------------------------------")
+        print("1- Realizar Pedido")
+        print("2- Sair do Estabecimento")
+        print(" ")
+
+        num = input("Selecione uma opcao: ")
+
+        if (num == "1"):
+
+          print(" ")
+          idSolicitacao = realizarPedido(nomeOpcoes,valorOpcoes,emailUser,estabelecimentoEscolhido)
+          processarPedido(idSolicitacao,cpf_user)
+          exibir_pedido()
+          user_escolha = input(" ")
+          if (user_escolha == "SIM"):
+            print("Pedido Realizado")      
+      if num_menu == "4":
           validacao_email = 3
-          num_login = "0"
-          num_menu = 0
-          appInit = False 
-              
+          appInit = False        
+    
     if validacao_email == 3:
       print("Aplicativo encerrado.")  
+    
     if validacao_email == 0:
       print("Login Invalido")
 
-    else: 
-      num_login = "0"
-      appInit = False
-      break
-  
   elif num_login == "2":
     cadastrarUsuario()
 
   elif num_login == "0":
     appInit = False
     print("Aplicativo Encerrado")
+  
   else:
     print("Opcao Invalida!")
