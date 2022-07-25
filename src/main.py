@@ -84,7 +84,8 @@ while(appInit):
           else:
             print("Opção inválida, selecione um estabelecimento da lista de favoritos.")
         if opcao_num == "2":
-          123 #Adicionar favorito
+          adicionarFavorito(exibirEstabelecimentos())
+          print("Adicionado aos favoritos.")
         if opcao_num == "3": 
           break
       

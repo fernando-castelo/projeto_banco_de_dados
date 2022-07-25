@@ -77,3 +77,6 @@ def converterCnpjNome(cnpj_favorito_selecionado):
     nomeEscolhido = i[0]
 
     return nomeEscolhido
+
+def adicionarFavorito():
+  123
