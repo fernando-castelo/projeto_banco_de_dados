@@ -1,5 +1,6 @@
 import mysql.connector
 
+
 mydb = mysql.connector.connect(
   host="localhost",
   user="root",
@@ -78,5 +79,39 @@ def converterCnpjNome(cnpj_favorito_selecionado):
 
     return nomeEscolhido
 
-def adicionarFavorito():
-  123
+def adicionarFavorito(cpf_user , cnpj):
+#Inserindo novo favorito no banco com dados obtidos de exibirEstabelecimentosfavoritos 
+# e get_cpf_user.
+ sql = "INSERT INTO favoritos(CPF, CNPJ) VALUES (%s, %s)"
+ val = (cpf_user , cnpj)
+
+ mycursor.execute(sql, val)
+
+
+def exibirEstabelecimentosfavorito():
+  #Exibe os Nomes dos Estabelecimentos para o Usuário.
+  mycursor.execute("SELECT Nome FROM estabelecimento")
+
+  result = mycursor.fetchall()
+
+  estabelecimentos = []
+  count = 1
+  print("------------- Adicionar aos favoritos------------")
+  for i in result:
+    print(count,"-", i[0])
+    estabelecimentos.append(i[0])
+    count += 1
+  #Consulta os CNPJ sem exibir
+  mycursor.execute("SELECT CNPJ FROM estabelecimento ORDER BY CNPJ DESC")
+
+  result = mycursor.fetchall()
+
+  cnpj = []
+  count2 = 1
+
+  for i in result:
+    cnpj.append(i[0])
+    count2 += 1
+  #O usuário escolhe o estabelecimento
+  indiceEscolhido = int(input("Selecione o estabelecimento desejado: "))
+  return cnpj[indiceEscolhido - 1]
